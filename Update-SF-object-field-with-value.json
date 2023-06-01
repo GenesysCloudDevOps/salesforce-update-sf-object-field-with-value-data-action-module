@@ -1,0 +1,63 @@
+{
+  "name": "Update SF object configurable field with configurable value",
+  "integrationType": "salesforce-datadip",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "/services/data/v54.0/sobjects/$salesforce.escReserved(${input.Object_SF_Type})/$salesforce.escReserved(${input.Object_SF_ID})",
+      "requestType": "PATCH",
+      "headers": {
+        "UserAgent": "PureCloudIntegrations/1.0"
+      },
+      "requestTemplate": "{\"${input.Object_Field_Name}\": \"${input.Object_Field_Value}\"}"
+    },
+    "response": {
+      "translationMap": {},
+      "translationMapDefaults": {},
+      "successTemplate": "${rawResult}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "title": "Object ID Request",
+        "description": "A object ID-based request.",
+        "type": "object",
+        "required": [
+          "Object_Field_Name",
+          "Object_Field_Value",
+          "Object_SF_ID",
+          "Object_SF_Type"
+        ],
+        "properties": {
+          "Object_SF_Type": {
+            "description": "The SF Object type to update",
+            "type": "string"
+          },
+          "Object_SF_ID": {
+            "description": "The SF internal Object ID to update ",
+            "type": "string"
+          },
+          "Object_Field_Name": {
+            "description": "The Salesforce Object field API name to update",
+            "type": "string"
+          },
+          "Object_Field_Value": {
+            "description": "The value to update the Object field.",
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    }
+  },
+  "secure": false
+}
